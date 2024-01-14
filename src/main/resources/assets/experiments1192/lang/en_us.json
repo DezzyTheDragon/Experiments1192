@@ -1,0 +1,14 @@
+{
+  "block.experiments1192.example_block": "Example",
+  "block.experiments1192.electrum_ore": "Electrum Ore",
+  "block.experiments1192.complex_assembler": "Complex Assembler",
+  "block.experiments1192.electrum_refinery": "Electrum Refinery",
+  "block.experiments1192.analyzer": "Analyzer",
+
+  "item.experiments1192.raw_electrum": "Raw Electrum",
+  "item.experiments1192.electrum_ingot": "Electrum Ingot",
+  "item.experiments1192.blank_blueprint": "Blank Blueprint",
+
+  "experiments1192.tile_entity.electrum_refinery": "Electrum Refinery",
+  "itemGroup.mod_tab": "Experiments 1192"
+}

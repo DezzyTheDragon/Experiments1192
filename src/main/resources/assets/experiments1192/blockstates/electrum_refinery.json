@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "experiments1192:block/electrum_refinery",
+      "y": -90
+    },
+    "facing=south": {
+      "model": "experiments1192:block/electrum_refinery",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "experiments1192:block/electrum_refinery",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "experiments1192:block/electrum_refinery"
+    }
+  }
+}
