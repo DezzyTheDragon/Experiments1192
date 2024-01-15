@@ -38,6 +38,7 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
     private LazyOptional<IItemHandler> lazyOptionalItemHandler = LazyOptional.empty();
 
     //Inventory slot constants
+    //NOTE: Turns out slots are 0 indexed
     private static final int FUEL_SLOT = 0;
     private static final int INGREDIENT_SLOT = 1;
     private static final int OUTPUT_SLOT = 2;
@@ -116,6 +117,7 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("inventory", itemStackHandler.serializeNBT());
         nbt.putInt("refinery.progress", this.currentProgress);
+        nbt.putInt("refinery.fuel", this.fuelLevel);
         super.saveAdditional(nbt);
     }
 
@@ -124,6 +126,7 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
         super.load(nbt);
         itemStackHandler.deserializeNBT(nbt.getCompound("inventory"));
         currentProgress = nbt.getInt("refinery.progress");
+        fuelLevel = nbt.getInt("refinery.fuel");
     }
 
     public void drops()

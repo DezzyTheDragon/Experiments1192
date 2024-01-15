@@ -13,4 +13,7 @@ public class TileEntityRegistry {
     public static final RegistryObject<BlockEntityType<ElectrumRefineryTileEntity>> ELECTRUM_REFINERY =
             TILE_ENTITIES.register("electrum_refinery",
                     () -> BlockEntityType.Builder.of(ElectrumRefineryTileEntity::new, BlockRegistry.ELECTRUM_REFINERY.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ComplexAssemblerTileEntity>> COMPLEX_ASSEMBLER =
+            TILE_ENTITIES.register("complex_assembler",
+                    () -> BlockEntityType.Builder.of(ComplexAssemblerTileEntity::new, BlockRegistry.COMPLEX_ASSEMBLER.get()).build(null));
 }

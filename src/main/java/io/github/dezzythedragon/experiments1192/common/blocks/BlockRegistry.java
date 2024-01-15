@@ -19,10 +19,9 @@ public class BlockRegistry {
     //Tile Entities
     //TODO: Complex assembler allows for the crafting of certain modded items, requires that the player find the recipe first
     public static RegistryObject<Block> COMPLEX_ASSEMBLER = BLOCKS.register("complex_assembler",
-            () -> new Block(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(0.5f)));
+            () -> new ComplexAssemblerBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(0.5f)));
     //TODO: Takes certain modded items and a blank blueprint and returns the blueprint for the given item
     public static RegistryObject<Block> ANALYZER = BLOCKS.register("analyzer", () -> new Block(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
-    //TODO: Allows for the refinement of electrum into electrum ingots
     public static RegistryObject<Block> ELECTRUM_REFINERY = BLOCKS.register("electrum_refinery",
             () -> new ElectrumRefineryBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).noOcclusion().strength(0.5f).requiresCorrectToolForDrops()));
 }
