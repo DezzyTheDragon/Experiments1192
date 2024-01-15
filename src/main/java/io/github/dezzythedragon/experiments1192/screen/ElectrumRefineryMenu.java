@@ -34,9 +34,9 @@ public class ElectrumRefineryMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
-            this.addSlot(new SlotItemHandler(itemHandler, 0, 56, 53));
-            this.addSlot(new SlotItemHandler(itemHandler, 1, 56, 17));
-            this.addSlot(new SlotItemHandler(itemHandler, 2, 116, 35));
+            this.addSlot(new SlotItemHandler(itemHandler, 0, 56, 53));  //Fuel Slot?
+            this.addSlot(new SlotItemHandler(itemHandler, 1, 56, 17));  //Ingredient Slot?
+            this.addSlot(new SlotItemHandler(itemHandler, 2, 116, 35)); //Output Slot
         });
 
         addDataSlots(data);
@@ -52,6 +52,13 @@ public class ElectrumRefineryMenu extends AbstractContainerMenu {
         int progressArrowSize = 26; //height of arrow in pixels
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+    }
+
+    public int getFuelAmount(){
+        int fuelLevel = this.data.get(2);
+        int fuelMax = this.data.get(3);
+        int fuelLevelSize = 18;
+        return fuelMax != 0 && fuelLevel != 0 ? fuelLevel * fuelLevelSize / fuelMax : 0;
     }
 
     private static final int HOTBAR_SLOT_COUNT = 9;

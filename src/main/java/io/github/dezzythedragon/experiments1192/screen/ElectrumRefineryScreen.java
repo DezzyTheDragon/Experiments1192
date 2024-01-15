@@ -31,12 +31,24 @@ public class ElectrumRefineryScreen extends AbstractContainerScreen<ElectrumRefi
 
         this.blit(stack, x, y, 0, 0, imageWidth, imageHeight);
         renderProgressArrow(stack, x, y);
+        renderFlames(stack, x, y);
+        renderPower(stack, x, y);
     }
 
     private void renderProgressArrow(PoseStack stack, int x, int y) {
         if(menu.isCrafting()){
-            blit(stack, x + 105, y + 33, 177, 14, menu.getScaledProgress(), 16);
+            blit(stack, x + 80, y + 35, 177, 14, menu.getScaledProgress(), 16);
         }
+    }
+
+    private void renderFlames(PoseStack stack, int x, int y){
+        if(menu.isCrafting()){
+            blit(stack, x + 57, y + 37, 176, 0, 14, 13);
+        }
+    }
+
+    private void renderPower(PoseStack stack, int x, int y){
+        blit(stack, x + 48, y + 52, 176, 31, 53, menu.getFuelAmount());
     }
 
     @Override

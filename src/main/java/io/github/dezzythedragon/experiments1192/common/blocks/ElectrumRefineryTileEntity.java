@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,18 +35,18 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
             setChanged();
         }
     };
-    private static LazyOptional<IItemHandler> lazyOptionalItemHandler = LazyOptional.empty();
+    private LazyOptional<IItemHandler> lazyOptionalItemHandler = LazyOptional.empty();
 
     //Inventory slot constants
-    private static final int FUEL_SLOT = 1;
-    private static final int INGREDIENT_SLOT = 2;
-    private static final int OUTPUT_SLOT = 3;
+    private static final int FUEL_SLOT = 0;
+    private static final int INGREDIENT_SLOT = 1;
+    private static final int OUTPUT_SLOT = 2;
 
     protected final ContainerData data;
     private int currentProgress = 0;
-    private int maxProgress = 70;
+    private int maxProgress = 200;
     private int fuelLevel = 0;
-    private int fuelMax = 120;
+    private int fuelMax = 1000;
 
     public ElectrumRefineryTileEntity(BlockPos pos, BlockState blockState) {
         super(TileEntityRegistry.ELECTRUM_REFINERY.get(), pos, blockState);
@@ -144,6 +145,10 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
 
         if(hasRecipe(entity))
         {
+            if(entity.fuelLevel <= 0){
+                refuel(entity);
+            }
+            entity.fuelLevel--;
             entity.currentProgress++;
             setChanged(level, blockPos, blockState);
             if(entity.currentProgress >= entity.maxProgress)
@@ -156,21 +161,13 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
             setChanged(level, blockPos, blockState);
         }
 
-        /*
-        if(entity.fuelLevel < entity.fuelMax && entity.fuelLevel > 0)
-        {
-            --entity.fuelLevel;
-            if(entity.fuelLevel == 0)
-            {
-                refuel(entity);
-            }
-        }
-        */
-
     }
 
     private static void refuel(ElectrumRefineryTileEntity entity) {
-        //TODO: Consume blaze powder and set fuel level to max
+        if(entity.itemStackHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.BLAZE_POWDER){
+            entity.itemStackHandler.extractItem(FUEL_SLOT, 1, false);
+            entity.fuelLevel = entity.fuelMax;
+        }
     }
 
     private void resetProgress() {
@@ -181,7 +178,7 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
         if(hasRecipe(entity))
         {
             entity.itemStackHandler.extractItem(INGREDIENT_SLOT, 1, false);
-            entity.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(ItemRegistry.ELECTRUM_ORE.get(),
+            entity.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(ItemRegistry.ELECTRUM_INGOT.get(),
                     entity.itemStackHandler.getStackInSlot(OUTPUT_SLOT).getCount() + 1));
             entity.resetProgress();
         }
@@ -196,7 +193,17 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
 
         boolean hasRawElectrum = entity.itemStackHandler.getStackInSlot(INGREDIENT_SLOT).getItem() == ItemRegistry.RAW_ELECTRUM.get();
 
-        return hasRawElectrum && canInsertAmount(inventory) && canInsertItem(inventory, new ItemStack(ItemRegistry.ELECTRUM_INGOT.get(), 1));
+        return hasRawElectrum && canInsertAmount(inventory)
+                && canInsertItem(inventory, new ItemStack(ItemRegistry.ELECTRUM_INGOT.get(), 1))
+                && hasValidPower(entity, inventory);
+    }
+
+    private static boolean hasValidPower(ElectrumRefineryTileEntity entity, SimpleContainer inventory){
+        boolean validPower = false;
+        if(entity.fuelLevel > 0 || inventory.getItem(FUEL_SLOT).getItem() == Items.BLAZE_POWDER){
+            validPower = true;
+        }
+        return validPower;
     }
 
     private static boolean canInsertItem(SimpleContainer inventory, ItemStack itemStack) {
