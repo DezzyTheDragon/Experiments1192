@@ -37,11 +37,11 @@ public class ComplexAssemblerMenu extends AbstractContainerMenu {
             int index = 0;
             for(int row = 0; row < 4; ++row){
                 for(int col = 0; col < 4; ++col){
-                    this.addSlot(new SlotItemHandler(itemHandler, index, col * 18, row * 18));
+                    this.addSlot(new SlotItemHandler(itemHandler, index, 17 + (col * 18), 8 + (row * 18)));
                     index++;
                 }
             }
-            this.addSlot(new SlotItemHandler(itemHandler, 16, 100, 100));
+            this.addSlot(new SlotItemHandler(itemHandler, 16, 130, 35));
         });
 
 
@@ -56,7 +56,7 @@ public class ComplexAssemblerMenu extends AbstractContainerMenu {
     private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-    private static final int TE_INVENTORY_SLOT_COUNT = 0;
+    private static final int TE_INVENTORY_SLOT_COUNT = 17;
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
@@ -99,14 +99,14 @@ public class ComplexAssemblerMenu extends AbstractContainerMenu {
     {
         for(int row = 0; row < 3; ++row){
             for(int col = 0; col < 9; ++col){
-                this.addSlot(new Slot(inventory, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
+                this.addSlot(new Slot(inventory, col + row * 9 + 9, 8 + col * 18, 93 + row * 18));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory inventory){
         for (int i = 0; i < 9; ++i){
-            this.addSlot(new Slot(inventory, i, 8 + i * 18, 142));
+            this.addSlot(new Slot(inventory, i, 8 + i * 18, 151));
         }
     }
 }

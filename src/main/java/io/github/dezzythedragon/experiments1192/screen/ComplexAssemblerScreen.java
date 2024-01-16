@@ -27,9 +27,13 @@ public class ComplexAssemblerScreen extends AbstractContainerScreen<ComplexAssem
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
+        int y = (height - 183) / 2;
 
-        this.blit(stack, x, y, 0, 0, imageWidth, imageHeight);
+        this.blit(stack, x, y, 0, 0, imageWidth, 183);
+        titleLabelX = 7;
+        titleLabelY = -3;
+        inventoryLabelX = 7;
+        inventoryLabelY = 83;
 
     }
 
