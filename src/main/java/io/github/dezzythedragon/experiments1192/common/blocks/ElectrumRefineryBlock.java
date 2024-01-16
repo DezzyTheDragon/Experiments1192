@@ -2,7 +2,9 @@ package io.github.dezzythedragon.experiments1192.common.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -26,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 //public class ElectrumRefineryBlock extends HorizontalDirectionalBlock {
 public class ElectrumRefineryBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
     private static final VoxelShape SHAPE = Block.box(1, 0, 1, 16, 16, 16);
     public ElectrumRefineryBlock(Properties properties) {
         super(properties);
@@ -53,6 +57,37 @@ public class ElectrumRefineryBlock extends BaseEntityBlock {
                 shape = Block.box(0, 0, 0, 16, 16, 16);
         }
         return shape;
+    }
+
+    @Override
+    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource random) {
+        //super.animateTick(blockState, level, blockPos, random);
+        double xOffset = 0;
+        double yOffset = 0.2D;
+        double zOffset = 0;
+        switch (blockState.getValue(FACING)) {
+            case NORTH:
+                xOffset = 0.5D;
+                zOffset = 0.625D;
+                break;
+            case SOUTH:
+                xOffset = 0.5D;
+                zOffset = 0.375D;
+                break;
+            case EAST:
+                xOffset = 0.375D;
+                zOffset = 0.5D;
+                break;
+            case WEST:
+                xOffset = 0.625D;
+                zOffset = 0.5D;
+                break;
+            default:
+                xOffset = 0.5D;
+                zOffset = 0.5D;
+        }
+            level.addParticle(ParticleTypes.FLAME, blockPos.getX() + xOffset, blockPos.getY() + yOffset, blockPos.getZ() + zOffset, 0.0D, 0.0D, 0.0D);
+
     }
 
     @Override

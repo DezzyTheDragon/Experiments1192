@@ -21,7 +21,8 @@ public class BlockRegistry {
     public static RegistryObject<Block> COMPLEX_ASSEMBLER = BLOCKS.register("complex_assembler",
             () -> new ComplexAssemblerBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(0.5f)));
     //TODO: Takes certain modded items and a blank blueprint and returns the blueprint for the given item
-    public static RegistryObject<Block> ANALYZER = BLOCKS.register("analyzer", () -> new Block(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
+    public static RegistryObject<Block> ANALYZER = BLOCKS.register("analyzer",
+            () -> new AnalyzerBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).noOcclusion()));
     public static RegistryObject<Block> ELECTRUM_REFINERY = BLOCKS.register("electrum_refinery",
             () -> new ElectrumRefineryBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).noOcclusion().strength(0.5f).requiresCorrectToolForDrops()));
 }

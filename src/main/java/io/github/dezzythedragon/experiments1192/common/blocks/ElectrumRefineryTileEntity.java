@@ -18,6 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -183,7 +184,6 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
             entity.itemStackHandler.extractItem(INGREDIENT_SLOT, 1, false);
             entity.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(ItemRegistry.ELECTRUM_INGOT.get(),
                     entity.itemStackHandler.getStackInSlot(OUTPUT_SLOT).getCount() + 1));
-            entity.resetProgress();
         }
     }
 
