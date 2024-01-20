@@ -1,6 +1,7 @@
 package io.github.dezzythedragon.experiments1192.common.blocks;
 
 import io.github.dezzythedragon.experiments1192.common.items.ItemRegistry;
+import io.github.dezzythedragon.experiments1192.recipe.ElectrumRefineryRecipies;
 import io.github.dezzythedragon.experiments1192.screen.ElectrumRefineryMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +27,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvider {
 
@@ -179,25 +182,40 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
     }
 
     private static void craftItem(ElectrumRefineryTileEntity entity) {
-        if(hasRecipe(entity))
-        {
-            entity.itemStackHandler.extractItem(INGREDIENT_SLOT, 1, false);
-            entity.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(ItemRegistry.ELECTRUM_INGOT.get(),
-                    entity.itemStackHandler.getStackInSlot(OUTPUT_SLOT).getCount() + 1));
-        }
-    }
-
-    private static boolean hasRecipe(ElectrumRefineryTileEntity entity) {
+        Level level = entity.getLevel();
         SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getSlots());
         for(int i = 0; i < entity.itemStackHandler.getSlots(); i++)
         {
             inventory.setItem(i, entity.itemStackHandler.getStackInSlot(i));
         }
 
-        boolean hasRawElectrum = entity.itemStackHandler.getStackInSlot(INGREDIENT_SLOT).getItem() == ItemRegistry.RAW_ELECTRUM.get();
+        Optional<ElectrumRefineryRecipies> recipe =
+                level.getRecipeManager().getRecipeFor(ElectrumRefineryRecipies.Type.INSTANCE, inventory, level);
 
-        return hasRawElectrum && canInsertAmount(inventory)
-                && canInsertItem(inventory, new ItemStack(ItemRegistry.ELECTRUM_INGOT.get(), 1))
+        if(hasRecipe(entity))
+        {
+            entity.itemStackHandler.extractItem(INGREDIENT_SLOT, 1, false);
+            entity.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(recipe.get().getResultItem().getItem(),
+                    entity.itemStackHandler.getStackInSlot(OUTPUT_SLOT).getCount() +
+                            recipe.get().getResultItem().getCount()));
+
+            entity.resetProgress();
+        }
+    }
+
+    private static boolean hasRecipe(ElectrumRefineryTileEntity entity) {
+        Level level = entity.getLevel();
+        SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getSlots());
+        for(int i = 0; i < entity.itemStackHandler.getSlots(); i++)
+        {
+            inventory.setItem(i, entity.itemStackHandler.getStackInSlot(i));
+        }
+
+        Optional<ElectrumRefineryRecipies> recipe =
+                level.getRecipeManager().getRecipeFor(ElectrumRefineryRecipies.Type.INSTANCE, inventory, level);
+
+        return recipe.isPresent() && canInsertAmount(inventory)
+                && canInsertItem(inventory, recipe.get().getResultItem())
                 && hasValidPower(entity, inventory);
     }
 

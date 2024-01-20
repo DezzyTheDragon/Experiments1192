@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 //public class ElectrumRefineryBlock extends HorizontalDirectionalBlock {
 public class ElectrumRefineryBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    //public static final BooleanProperty LIT = BlockStateProperties.LIT;
     private static final VoxelShape SHAPE = Block.box(1, 0, 1, 16, 16, 16);
     public ElectrumRefineryBlock(Properties properties) {
         super(properties);

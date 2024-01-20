@@ -1,0 +1,11 @@
+{
+  "type": "experiments1192:electrum_refining",
+  "ingredients": [
+    {
+      "item": "experiments1192:raw_electrum"
+    }
+  ],
+  "output": {
+    "item": "experiments1192:electrum_ingot"
+  }
+}

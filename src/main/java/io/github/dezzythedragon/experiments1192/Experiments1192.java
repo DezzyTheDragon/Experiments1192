@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import io.github.dezzythedragon.experiments1192.common.blocks.BlockRegistry;
 import io.github.dezzythedragon.experiments1192.common.blocks.TileEntityRegistry;
 import io.github.dezzythedragon.experiments1192.common.items.ItemRegistry;
+import io.github.dezzythedragon.experiments1192.recipe.RecipeRegistry;
 import io.github.dezzythedragon.experiments1192.screen.ElectrumRefineryScreen;
 import io.github.dezzythedragon.experiments1192.screen.MenuRegistry;
 import net.minecraft.client.Minecraft;
@@ -42,6 +43,7 @@ public class Experiments1192 {
         BlockRegistry.BLOCKS.register(modEventBus);
         TileEntityRegistry.TILE_ENTITIES.register(modEventBus);
         MenuRegistry.MENUS.register(modEventBus);
+        RecipeRegistry.RECIPE.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
