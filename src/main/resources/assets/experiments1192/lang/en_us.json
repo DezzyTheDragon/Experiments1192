@@ -11,5 +11,6 @@
 
   "experiments1192.tile_entity.electrum_refinery": "Electrum Refinery",
   "experiments1192.tile_entity.complex_assembler": "Complex Assembler",
-  "itemGroup.mod_tab": "Experiments 1192"
+  "itemGroup.mod_tab": "Experiments 1192",
+  "jei.electrum_refinery": "Electrum Refinery"
 }

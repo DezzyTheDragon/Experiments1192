@@ -64,6 +64,11 @@ public class ElectrumRefineryRecipies implements Recipe<SimpleContainer> {
         return Type.INSTANCE;
     }
 
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return recipeItems;
+    }
+
     public static class Type implements RecipeType<ElectrumRefineryRecipies>{
         public Type () {}
         public static final Type INSTANCE = new Type();
