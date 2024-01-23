@@ -10,5 +10,5 @@ public class RecipeRegistry {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Experiments1192.MODID);
 
     public static final RegistryObject<RecipeSerializer<ElectrumRefineryRecipies>> ELECTRUM_REFINERY_RECIPE = RECIPE.register("electrum_refining",
-            () -> ElectrumRefineryRecipies.Serializer.INSTANCE);
+            () -> ElectrumRefineryRecipies.ElectrumRefinery_Serializer.INSTANCE);
 }

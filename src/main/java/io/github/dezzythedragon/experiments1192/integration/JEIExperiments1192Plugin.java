@@ -33,7 +33,7 @@ public class JEIExperiments1192Plugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
         //Register the recipe types
-        List<ElectrumRefineryRecipies> refineryRecipesList = rm.getAllRecipesFor(ElectrumRefineryRecipies.Type.INSTANCE);
+        List<ElectrumRefineryRecipies> refineryRecipesList = rm.getAllRecipesFor(ElectrumRefineryRecipies.ElectrumRefinery_Type.INSTANCE);
         registration.addRecipes(REFINERY_TYPE, refineryRecipesList);
         //Add additional recipe types
     }

@@ -13,25 +13,22 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class ElectrumRefineryRecipies implements Recipe<SimpleContainer> {
+public class ComplexAssemblerRecipies implements Recipe<SimpleContainer> {
 
     private final ResourceLocation ID;
     private final ItemStack OUTPUT;
-    private final NonNullList<Ingredient> RECIPE_ITEMS;
+    private final NonNullList<Ingredient> INPUT;
 
-    public ElectrumRefineryRecipies(ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems){
-        this.ID = id;
-        this.OUTPUT = output;
-        this.RECIPE_ITEMS = recipeItems;
+    public ComplexAssemblerRecipies(ResourceLocation id, ItemStack output, NonNullList<Ingredient> ingredients){
+        ID = id;
+        OUTPUT = output;
+        INPUT = ingredients;
     }
 
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        if(pLevel.isClientSide()){
-            return false;
-        }
-
-        return RECIPE_ITEMS.get(0).test(pContainer.getItem(1));
+        //TODO: Look at how the normal crafting table matches its recipe and replicate that
+        return false;
     }
 
     @Override
@@ -56,46 +53,41 @@ public class ElectrumRefineryRecipies implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ElectrumRefinery_Serializer.INSTANCE;
+        return null;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ElectrumRefinery_Type.INSTANCE;
+        return null;
     }
 
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return RECIPE_ITEMS;
+    public static class ComplexAssembler_Type implements RecipeType<ComplexAssemblerRecipies>{
+        public ComplexAssembler_Type(){}
+        public static final ComplexAssembler_Type INSTANCE = new ComplexAssembler_Type();
+        public static final String ID = "complex_assembling";
     }
 
-    public static class ElectrumRefinery_Type implements RecipeType<ElectrumRefineryRecipies>{
-        public ElectrumRefinery_Type() {}
-        public static final ElectrumRefinery_Type INSTANCE = new ElectrumRefinery_Type();
-        public static final String ID = "electrum_refining";
-    }
-
-    public static class ElectrumRefinery_Serializer implements RecipeSerializer<ElectrumRefineryRecipies>{
-        public static final ElectrumRefinery_Serializer INSTANCE = new ElectrumRefinery_Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Experiments1192.MODID, "electrum_refining");
+    public static class ComplexAssembler_Serializer implements RecipeSerializer<ComplexAssemblerRecipies>{
+        public static final ComplexAssembler_Serializer INSTANCE = new ComplexAssembler_Serializer();
+        public static final ResourceLocation ID = new ResourceLocation(Experiments1192.MODID, "complex_assembling");
 
         @Override
-        public ElectrumRefineryRecipies fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+        public ComplexAssemblerRecipies fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredients.size(), Ingredient.EMPTY);
 
             for(int i = 0; i < inputs.size(); i++){
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new ElectrumRefineryRecipies(pRecipeId, output, inputs);
+            return new ComplexAssemblerRecipies(pRecipeId, output, inputs);
         }
 
-        //Take buffered data from network and read it out into usable information
+
         @Override
-        public @Nullable ElectrumRefineryRecipies fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        public @Nullable ComplexAssemblerRecipies fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
 
             for(int i = 0; i < inputs.size(); i++){
@@ -104,19 +96,19 @@ public class ElectrumRefineryRecipies implements Recipe<SimpleContainer> {
 
             ItemStack output = pBuffer.readItem();
 
-            return new ElectrumRefineryRecipies(pRecipeId, output, inputs);
+            return new ComplexAssemblerRecipies(pRecipeId, output, inputs);
         }
 
-        //Take the data and write it into a buffer so it can be sent through the network
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, ElectrumRefineryRecipies pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, ComplexAssemblerRecipies pRecipe) {
             pBuffer.writeInt(pRecipe.getIngredients().size());
 
-            for(Ingredient ing : pRecipe.getIngredients()){
-                ing.toNetwork(pBuffer);
+            for(Ingredient ingredient : pRecipe.getIngredients()){
+                ingredient.toNetwork(pBuffer);
             }
 
             pBuffer.writeItemStack(pRecipe.getResultItem(), false);
+
         }
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WEW",
+    "EWE",
+    "WEW"
+  ],
+  "key": {
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "E": {
+      "item": "experiments1192:electrum_ingot"
+    }
+  },
+  "result": {
+    "item": "experiments1192:complex_assembler"
+  }
+}

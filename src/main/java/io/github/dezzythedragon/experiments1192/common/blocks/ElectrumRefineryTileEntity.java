@@ -1,6 +1,5 @@
 package io.github.dezzythedragon.experiments1192.common.blocks;
 
-import io.github.dezzythedragon.experiments1192.common.items.ItemRegistry;
 import io.github.dezzythedragon.experiments1192.recipe.ElectrumRefineryRecipies;
 import io.github.dezzythedragon.experiments1192.screen.ElectrumRefineryMenu;
 import net.minecraft.core.BlockPos;
@@ -19,7 +18,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -190,7 +188,7 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
         }
 
         Optional<ElectrumRefineryRecipies> recipe =
-                level.getRecipeManager().getRecipeFor(ElectrumRefineryRecipies.Type.INSTANCE, inventory, level);
+                level.getRecipeManager().getRecipeFor(ElectrumRefineryRecipies.ElectrumRefinery_Type.INSTANCE, inventory, level);
 
         if(hasRecipe(entity))
         {
@@ -212,7 +210,7 @@ public class ElectrumRefineryTileEntity extends BlockEntity implements MenuProvi
         }
 
         Optional<ElectrumRefineryRecipies> recipe =
-                level.getRecipeManager().getRecipeFor(ElectrumRefineryRecipies.Type.INSTANCE, inventory, level);
+                level.getRecipeManager().getRecipeFor(ElectrumRefineryRecipies.ElectrumRefinery_Type.INSTANCE, inventory, level);
 
         return recipe.isPresent() && canInsertAmount(inventory)
                 && canInsertItem(inventory, recipe.get().getResultItem())
