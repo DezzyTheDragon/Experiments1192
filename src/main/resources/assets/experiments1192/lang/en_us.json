@@ -8,9 +8,15 @@
   "item.experiments1192.raw_electrum": "Raw Electrum",
   "item.experiments1192.electrum_ingot": "Electrum Ingot",
   "item.experiments1192.blank_blueprint": "Blank Blueprint",
+  "item.experiments1192.story_tablet": "Data Tablet",
 
   "experiments1192.tile_entity.electrum_refinery": "Electrum Refinery",
   "experiments1192.tile_entity.complex_assembler": "Complex Assembler",
+  "experiments1192.gui.story_tab": "Tablet",
   "itemGroup.mod_tab": "Experiments 1192",
+
+  "key.category.experiments1192": "Experiments 1192",
+  "key.experiments1192.bestiary": "Bestiary",
+
   "jei.electrum_refinery": "Electrum Refinery"
 }

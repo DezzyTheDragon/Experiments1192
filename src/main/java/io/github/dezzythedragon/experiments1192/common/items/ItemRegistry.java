@@ -30,6 +30,7 @@ public class ItemRegistry {
     public static RegistryObject<Item> RAW_ELECTRUM = ITEMS.register("raw_electrum", () -> new Item(new Item.Properties().tab(MOD_TAB)));
     public static RegistryObject<Item> ELECTRUM_INGOT = ITEMS.register("electrum_ingot", () -> new Item(new Item.Properties().tab(MOD_TAB)));
     //TODO: Blueprints allow the player to learn advanced mod recipes. Blank allow the player to reverse engineer one item.
-    public static RegistryObject<Item> BLANK_BLUEPRINT = ITEMS.register("blank_blueprint", () -> new Item(new Item.Properties().tab(MOD_TAB)));
+    //public static RegistryObject<Item> BLANK_BLUEPRINT = ITEMS.register("blank_blueprint", () -> new Item(new Item.Properties().tab(MOD_TAB)));
+    //public static RegistryObject<Item> STORY_TABLET = ITEMS.register("story_tablet", () -> new StoryTabletItem(new Item.Properties().tab(MOD_TAB)));
 
 }
